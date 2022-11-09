@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<!--This should be changed to only be the player select menu. The play again button will redirect here-->
+
+<head>
+    <meta charset="utf-8">
+    <title>TIC-TAC-TOE</title>
+    <script src="scripts/functions.js"></script>
+    <script src="scripts/ticTacToe.js"></script>
+    <link rel="stylesheet" href="assets/theme.css">
+</head>
+<body>
+
+    <h1 >TIC-TAC-TOE</h1><br/>
+    <div id="playerNum">
+        <h3>Choose the number of human players:</h3><br/>
+        <input type="radio" id="vsComp" name="playerNumChoice" 
+            value="1" checked="true">1: Human vs AI</button><br/>
+        <input type="radio" id="vsHuman" name="playerNumChoice" 
+            value="2">2: Human vs Human</button></br>
+        <button onclick="playerNum()">Select</button>
+    </div>
+</body>
+</html>
