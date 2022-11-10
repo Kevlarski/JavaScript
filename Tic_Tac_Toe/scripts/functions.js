@@ -1,11 +1,13 @@
 let playerNumber;
 let spaces = [];
 
+//Selects the caption element and changes the text
 function captionChange(player){
     const caption = document.querySelector('caption');
     caption.innerHTML="It's " + player + "'s turn!";
-}//end captionChange
+} //end captionChange
 
+//Randomly determines which token plays first
 function firstPlayer(){
     const firstPlayer = ((Math.random()*10).toFixed())%2;
     if(firstPlayer==1){
@@ -14,10 +16,10 @@ function firstPlayer(){
     else if(firstPlayer==0){
         return "O";
     }
-}//end firstPlayer
+} //end firstPlayer
 
+//Looks to see how many humans are playing
 function playerNum(){
-    // Makes the player select menu invisble
     const vsComp = document.getElementById("vsComp");
     if(vsComp.checked==true){
         document.location.href = "./singlePlayer.html";
@@ -29,6 +31,7 @@ function playerNum(){
     }
 }//end playerMenu
 
+//Fills the spaces array with references to all the grid spaces
 function gridFinder(){
     spaces.push(document.getElementById("1"));
     spaces.push(document.getElementById("2"));
@@ -41,10 +44,12 @@ function gridFinder(){
     spaces.push(document.getElementById("9"));
 }
 
+//Redirects user back to player selection page
 function play(){
     document.location.href = "./index.html";
 }//end play
 
+//Checks to see if passed array has a length of 9
 function checkCats(array){
     if(Array.isArray(array)){
         if(array.length==9){
@@ -59,20 +64,21 @@ function checkCats(array){
     }
 }
 
-function movesPushNSwich(player, id){
-    const cell = parseInt(id);
-    switch(player){
-        case "X":
-            movesX.push(cell);
-            if(array.length>2){wincon(id);}
-            currentPlayer = "O";
-            captionChange(currentPlayer);
-            break;
-        case "O":
-            movesO.push(cell);
-            if(array.length>2){wincon(id);}
-            currentPlayer = "X";
-            captionChange(currentPlayer);
-            break; 
-    }
-}
+// function movesPushNSwich(player, id){
+//     const cell = parseInt(id);
+//     switch(player){
+//         case "X":
+//             movesX.push(cell);
+//             if(array.length>2){wincon(id);}
+//             currentPlayer = "O";
+//             captionChange(currentPlayer);
+//             break;
+//         case "O":
+//             movesO.push(cell);
+//             if(array.length>2){wincon(id);}
+//             currentPlayer = "X";
+//             captionChange(currentPlayer);
+//             break; 
+//     }
+// }
+

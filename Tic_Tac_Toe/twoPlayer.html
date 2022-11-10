@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="assets/theme.css">
 </head>
 <body>
-    <h1>TIC-TAC-TOE</h1>
-    <h2 id="winner"></h2>
+    <h1 style="margin-top:0px">Two Player</h1>
+    <h2  id="winner"></h2>
     <table border="2px">
         <caption id="caption"></caption>
         <tr>
@@ -33,7 +33,7 @@
     </table>
     <br/>
     <input type="button" onclick="start()" value="Start/Reset"><br/>
-    <input type="button" onclick="play()" value="Play Again" disabled="true">
+    <input type="button" id="playAgain" onclick="play()" value="Play Again" disabled="true">
     <div class="timer">
         &emsp;&emsp;Game Timer:&emsp;<div id="minutes">00</div>:<div id="seconds">00</div>
     </div>

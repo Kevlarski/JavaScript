@@ -8,3 +8,10 @@ td{height: 100px;
 caption{caption-side: bottom;}
 div{text-align: center;}
 .timer{display: inline-flex;}
+h1{
+    margin-bottom: 0%;
+}
+h2{
+    margin: 0%;
+    padding-top: 15px; 
+}

@@ -1,9 +1,11 @@
+//Declaring variables
 let currentPlayer;
 let counter = 0;
 let timer;
 let movesX = [];
 let movesO = [];
 
+//Defining the win states
 const rowTop = [1,2,3];
 const rowMid = [4,5,6];
 const rowBottom = [7,8,9];
@@ -47,6 +49,7 @@ function claim(id){
 }//end claim
 
 function start(){
+    reset();
     // Randomly determines first player using Math.random
     currentPlayer=firstPlayer();
 
@@ -89,7 +92,7 @@ function start(){
 
 
   function wincon(player, id) {
-
+    
     const winner = document.getElementById("winner");
     let totalMoves = movesX.concat(movesO);
     let cats = checkCats(totalMoves);
@@ -106,105 +109,134 @@ function start(){
 
     if(cats==true){
         winner.innerText = "Cat's Game!";
+        document.getElementById("playAgain").disabled=false;
     }
     else{ 
         switch(id){
             case "1":
                 if(winners[0].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[3].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[6].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
-                checkCats(spaces);
                 break;
             case "2":
                 if(winners[0].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[4].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
-                
                 break;
             case "3":
                 if(winners[0].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[4].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[7].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 break;
             case "4":
                 if(winners[1].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[3].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
-                
                 break;
             case "5":
                 if(winners[1].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[4].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[6].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[7].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
-                
                 break;
             case "6":
                 if(winners[1].every(m =>moves.includes(m))){
+                    document.getElementById("playAgain").disabled=false;
                     winner.innerText = player + " wins!";
                 }
                 else if(winners[5].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
-                
                 break;
             case "7":
                 if(winners[2].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[3].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[7].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 break;
             case "8":
                 if(winners[3].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[4].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 break;
             case "9":
                 if(winners[2].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[5].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 else if(winners[6].every(m =>moves.includes(m))){
                     winner.innerText = player + " wins!";
+                    document.getElementById("playAgain").disabled=false;
                 }
                 break;    
         }
     }
 }//end wincon
 
+function reset(){
+    gridFinder();
+    document.getElementById("winner").innerText="";
+    spaces.forEach(element => {element.innerText=""});
+    if(movesO.length>0||movesX.length>0){
+        movesO.splice(0,movesO.length);
+        movesX.splice(0,movesX.length);
+    }
+}
