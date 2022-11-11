@@ -2,10 +2,11 @@
 let currentPlayer;
 let counter = 0;
 let timer;
-let movesX = [];
-let movesO = [];
 let playerNumber;
-let spaces = [];
+const movesX = [];
+const movesO = [];
+const spaces = [];
+const open = [];
 
 //Defining the win states and putting them in an array
 const rowTop = [1, 2, 3];
@@ -17,6 +18,8 @@ const colRight = [3, 6, 9];
 const diagLeft = [1, 5, 9];
 const diagRight = [3, 5, 7];
 const winners = [rowTop, rowMid, rowBottom, colLeft, colMid, colRight, diagLeft, diagRight];
+
+
 
 //Selects the caption element and changes the text
 function captionChange(player) {
@@ -78,5 +81,63 @@ function checkCats(array) {
     }
 }
 
+//Calls gridFinder() then iterates through spaces[] and clears the element's innerText
+//also clears the winner/cat's text and the move arrays for both players
+function reset() {
+    gridFinder();
+    document.getElementById("winner").innerText = "";
+    spaces.forEach(element => { element.innerText = "" });
+    if (movesO.length > 0 || movesX.length > 0) {
+        movesO.splice(0, movesO.length);
+        movesX.splice(0, movesX.length);
+    }
+    //clears any previous timer
+    if (timer) {
+        clearInterval(timer);
+        const seconds = document.getElementById("seconds");
+        seconds.innerText = "00";
+        minutes.innerText = "00";
+        counter = "0";
+    }
+    document.getElementById("playAgain").disabled = true;
+    if (document.getElementById("vsComp").checked && currentPlayer == "O") {
+        compMove();
+    }
+}//end reset
 
+function compMove() {
+    //clears open[]
+    open.splice(0,open.length);
+    spaces.splice(0,spaces.length);
+    //makes sure spaces[] is populated
+    gridFinder();
 
+    //looks for the spots without images
+    let i = 0;
+    while (i < 9) {
+        
+        if(spaces[i].innerHTML.length<1){
+            open.push(spaces[i]);
+        }
+        i++;
+    }
+    //picks a random number based on the number of open spots
+    let chooser = (Math.random()*(open.length)).toFixed();
+    let choice = open[parseInt(chooser)];
+    
+    if(choice.innerHTML.length<1){
+        alert(choice.id);
+        claim(choice.id);
+    }
+    else{
+        alert("oops");
+    }
+    
+    
+}
+
+function checkBlank(space) {
+    if (space.innerHTML == "") {
+        return true;
+    }
+}

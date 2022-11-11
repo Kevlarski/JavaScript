@@ -1,6 +1,4 @@
 
-const playAgain = document.getElementById("playAgain"); //do these need to be global?
-const caption = document.getElementById("winner");
 
 function claim(id) {
 
@@ -17,11 +15,16 @@ function claim(id) {
             if (movesX.length > 2) { wincon("X", id); }
             currentPlayer = "O";
             captionChange(currentPlayer);
+            if (document.getElementById("vsComp").checked &&
+                document.getElementById("winner").innerText.length < 1) {
+                compMove();
+                document.querySelector('caption').innerText = "";
+            }
         }
         else {
             cellClicked.innerHTML = "<img src=\"assets/oh.png\">";
             movesO.push(cell);
-            wincon("O", id);
+            if (movesO.length > 2) { wincon("O", id); }
             currentPlayer = "X";
             captionChange(currentPlayer);
         }
@@ -71,13 +74,19 @@ function start() {
             seconds.innerHTML = counter;
         }
     }, 1000);
+
+    if (document.getElementById("vsComp").checked && currentPlayer == "O") {
+        compMove();
+    }
 }//end start
 
 
 
 function wincon(player, id) {
     //Adds finds the play again button and the winner display text
-    
+    const playAgain = document.getElementById("playAgain"); //do these need to be global?
+    const winner = document.getElementById("winner");
+
 
     //Adds all moves to see if all spaces have been taken
     const totalMoves = movesX.concat(movesO);
@@ -94,147 +103,131 @@ function wincon(player, id) {
             break;
     }
 
+    
+    
+    switch (id) {
+        case "1":
+            if (winners[0].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[3].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[6].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            break;
+        case "2":
+            if (winners[0].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[4].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            break;
+        case "3":
+            if (winners[0].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[4].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[7].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            break;
+        case "4":
+            if (winners[1].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[3].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            break;
+        case "5":
+            if (winners[1].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[4].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[6].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[7].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            break;
+        case "6":
+            if (winners[1].every(m => moves.includes(m))) {
+                playAgain.disabled = false;
+                winner.innerText = player + " wins!";
+            }
+            else if (winners[5].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            break;
+        case "7":
+            if (winners[2].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[3].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[7].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            break;
+        case "8":
+            if (winners[3].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[4].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            break;
+        case "9":
+            if (winners[2].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[5].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            else if (winners[6].every(m => moves.includes(m))) {
+                winner.innerText = player + " wins!";
+                playAgain.disabled = false;
+            }
+            break;
+    }
     if (cats == true) {
-        caption.innerHTML = "Cat's Game!";
+        winner.innerHTML = "Cat's Game!";
         playAgain.disabled = false;
     }
-    else {
-        switch (id) {
-            case "1":
-                if (winners[0].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[3].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[6].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                break;
-            case "2":
-                if (winners[0].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[4].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                break;
-            case "3":
-                if (winners[0].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[4].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[7].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                break;
-            case "4":
-                if (winners[1].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[3].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                break;
-            case "5":
-                if (winners[1].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[4].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[6].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[7].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                break;
-            case "6":
-                if (winners[1].every(m => moves.includes(m))) {
-                    playAgain.disabled = false;
-                    caption.innerText = player + " wins!";
-                }
-                else if (winners[5].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                break;
-            case "7":
-                if (winners[2].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[3].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[7].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                break;
-            case "8":
-                if (winners[3].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[4].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                break;
-            case "9":
-                if (winners[2].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[5].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                else if (winners[6].every(m => moves.includes(m))) {
-                    caption.innerText = player + " wins!";
-                    playAgain.disabled = false;
-                }
-                break;
-        }
+    
+    if (winner.innerHTML.length > 0) {
+        document.querySelector('caption').innerHTML = "";
     }
 }//end wincon
 
-//Calls gridFinder() then iterates through spaces[] and clears the element's innerText
-//also clears the winner/cat's text and the move arrays for both players
-function reset() {
-    gridFinder();
-    document.getElementById("winner").innerText = "";
-    spaces.forEach(element => { element.innerText = "" });
-    if (movesO.length > 0 || movesX.length > 0) {
-        movesO.splice(0, movesO.length);
-        movesX.splice(0, movesX.length);
-    }
-    //clears any previous timer
-    if (timer) {
-        clearInterval(timer);
-        const seconds = document.getElementById("seconds");
-        seconds.innerText = "00";
-        minutes.innerText = "00";
-        counter = "0";
-    }
-    document.getElementById("playAgain").disabled=true;
-}//end reset
