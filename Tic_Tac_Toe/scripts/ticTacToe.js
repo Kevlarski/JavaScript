@@ -1,13 +1,14 @@
-
-
+//Function to claim a spot. Includes calls to compMove() when playing AI
 function claim(id) {
 
+    //turns id into an int
     const cell = parseInt(id);
 
     //get the clicked cell by passed id
     const cellClicked = document.getElementById(id);
 
-    // if cell is empty, replace with image, add the id number to the player moves array, sort it, check for wincon, then change player.
+    // if cell is empty, replace with image based on player, add the id number to the player moves array,
+    // check for wincon, then change player. If vs AI is selected, and wincon not met, calls compMove()
     if (cellClicked.innerHTML.length == 0) {
         if (currentPlayer == "X") {
             cellClicked.innerHTML = "<img src=\"assets/ex.png\">";
@@ -18,7 +19,6 @@ function claim(id) {
             if (document.getElementById("vsComp").checked &&
                 document.getElementById("winner").innerText.length < 1) {
                 compMove();
-                document.querySelector('caption').innerText = "";
             }
         }
         else {
@@ -29,21 +29,26 @@ function claim(id) {
             captionChange(currentPlayer);
         }
     }
+    //Error message when an occupied space is clicked
     else {
         window.alert("Please pick an empty space!")
     }
-
 }//end claim
 
+//Starts the game (on fresh load, effectively just starts the timer). 
+//Includes calls to reset() to clear the board, and compMove() for AI first move
 function start() {
+
+    //clear the board, movesets, and various board-state text
     reset();
-    // Randomly determines first player using Math.random
+
+    // Randomly determines first player using Math.random and assigns to currentPlayer
     currentPlayer = firstPlayer();
 
     // Changes the caption for the table to display who's turn it is
     captionChange(currentPlayer);
 
-    //clears any previous timer
+    //clears any previous timer and sets text back to 00s
     if (timer) {
         clearInterval(timer);
         const seconds = document.getElementById("seconds");
@@ -52,7 +57,7 @@ function start() {
         counter = "0";
     }
 
-    //starts new timer
+    //starts new timer that increases every "second"
     timer = setInterval(function increase() {
         counter++;
         const seconds = document.getElementById("seconds");
@@ -75,24 +80,25 @@ function start() {
         }
     }, 1000);
 
+    //if vs AI is checked and O goes first, computer takes the first move
     if (document.getElementById("vsComp").checked && currentPlayer == "O") {
         compMove();
     }
 }//end start
 
 
-
+//Checks for win conditions or cat's game
 function wincon(player, id) {
+
     //Adds finds the play again button and the winner display text
-    const playAgain = document.getElementById("playAgain"); //do these need to be global?
+    const playAgain = document.getElementById("playAgain");
     const winner = document.getElementById("winner");
 
-
-    //Adds all moves to see if all spaces have been taken
+    //Combines moveset arrays and passes to checkCats()to see if cat's game is true
     const totalMoves = movesX.concat(movesO);
     const cats = checkCats(totalMoves);
 
-    //Uses moves to represent either move set array for simplicity
+    //Uses moves to represent either move set array for flexibility
     let moves;
     switch (player) {
         case "X":
@@ -103,131 +109,155 @@ function wincon(player, id) {
             break;
     }
 
-    
-    
+    //If cat's game, announce it. Actual win conditions follow to prevent last move wins
+    //being announced as cat's game.
+    if (cats == true) {
+        winner.innerHTML = "Cat's Game!";
+        playAgain.disabled = false;
+        document.querySelector('caption').hidden = true;
+    }
+
+    //Checks if moveset contains any win conditions based on the last space clicked,
+    // sets the proper text if so, hides the current player text, and enables the play again button
     switch (id) {
         case "1":
             if (winners[0].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[3].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[6].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             break;
         case "2":
             if (winners[0].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[4].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             break;
         case "3":
             if (winners[0].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[4].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[7].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             break;
         case "4":
             if (winners[1].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[3].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             break;
         case "5":
             if (winners[1].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[4].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[6].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[7].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             break;
         case "6":
             if (winners[1].every(m => moves.includes(m))) {
                 playAgain.disabled = false;
                 winner.innerText = player + " wins!";
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[5].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             break;
         case "7":
             if (winners[2].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[3].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[7].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             break;
         case "8":
             if (winners[3].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[4].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             break;
         case "9":
             if (winners[2].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[5].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             else if (winners[6].every(m => moves.includes(m))) {
                 winner.innerText = player + " wins!";
                 playAgain.disabled = false;
+                document.querySelector('caption').hidden = true;
             }
             break;
-    }
-    if (cats == true) {
-        winner.innerHTML = "Cat's Game!";
-        playAgain.disabled = false;
-    }
-    
-    if (winner.innerHTML.length > 0) {
-        document.querySelector('caption').innerHTML = "";
     }
 }//end wincon
 
