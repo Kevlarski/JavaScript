@@ -260,4 +260,3 @@ function wincon(player, id) {
             break;
     }
 }//end wincon
-

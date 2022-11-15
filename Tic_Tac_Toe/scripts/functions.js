@@ -138,4 +138,3 @@ function compMove() {
         alert("oops");
     }
 }//end compMove
-
