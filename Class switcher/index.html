@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Classes of D&D</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/theme.css">
+    <script src="assets/functions.js"></script>
+</head>
+
+<body>
+    <div id="body" style="display: inline-grid; justify-items: center;">
+
+        <h1>Pick a class to learn more!</h1>
+        <select onchange="change()" id="classes">
+            <option value="">Choose a class to learn more!</option>
+            <option value="Barbarian">Barbarian</option>
+            <option value="Bard">Bard</option>
+            <option value="Cleric">Cleric</option>
+            <option value="Druid">Druid</option>
+            <option value="Fighter">Fighter</option>
+            <option value="Monk">Monk</option>
+            <option value="Paladin">Paladin</option>
+            <option value="Ranger">Ranger</option>
+            <option value="Rogue">Rogue</option>
+            <option value="Sorcerer">Sorcerer</option>
+            <option value="Warlock">Warlock</option>
+            <option value="Wizard">Wizard</option>
+        </select>
+
+        <img id="pic" src="assets/DNDampersand_smol.jpg" style="padding-top: 2%;">
+        <table width="50%">
+            <caption id="caption"></caption>
+            <tbody>
+                <tr id="spielRow">
+                    <td id="spiel"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>
